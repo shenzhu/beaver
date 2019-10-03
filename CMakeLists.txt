@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_executable(
     app
-    main.cc
+    src/main.cc
 )
 
 target_include_directories(
