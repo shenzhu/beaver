@@ -20,7 +20,7 @@ DataStream::DataStream(Config&& config) :
 
 }
 
-template<typename T>
+template <typename T>
 void DataStream::setKafkaConfig(RdKafka::Conf* conf, const char* property, T&& value) {
     std::string errstr;
     conf->set(property, std::forward<T>(value), errstr);
@@ -60,10 +60,7 @@ void DataStream::consumeMessage(RdKafka::Message* message) {
             break;
         
         case RdKafka::ERR_NO_ERROR:
-            std::cout << "Key: " << message->key() << " "
-                << static_cast<int>(message->len()) << " "
-                << static_cast<const char*>(message->payload())
-                << std::endl;
+            applyFuncs(message);
             break;
         
         case RdKafka::ERR__UNKNOWN_TOPIC:
@@ -73,6 +70,19 @@ void DataStream::consumeMessage(RdKafka::Message* message) {
         
         default:
             std::cerr << "Consume failed: " << message->errstr() << std::endl;
+    }
+}
+
+void DataStream::applyFuncs(RdKafka::Message* message) {
+    // Extract key and value from message and convert to char*
+    std::string* key = nullptr;
+    if (message->key()) {
+        key = const_cast<std::string*>(message->key());
+    }
+    std::string value = std::string(static_cast<const char*>(message->payload()));
+
+    for (const auto& f : functions_) {
+        f(key, &value);
     }
 }
 
