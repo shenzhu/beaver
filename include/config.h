@@ -26,6 +26,11 @@ public:
 
     ~Config() {}
 
+    // Accessors to properties
+    const std::string& brokers() const noexcept;
+    const std::string& groupId() const noexcept;
+    const std::vector<std::string>& topics() const noexcept;
+
 private:
 
     std::string brokers_;

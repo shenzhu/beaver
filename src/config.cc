@@ -16,4 +16,16 @@ Config::Config(std::string&& brokers,
 
 }
 
+auto Config::brokers() const noexcept -> const decltype(brokers_)& {
+    return brokers_;
+}
+
+auto Config::groupId() const noexcept-> const decltype(groupId_)& {
+    return groupId_;
+}
+
+auto Config::topics() const noexcept -> const decltype(topics_)& {
+    return topics_;
+}
+
 }  // namespace beaver

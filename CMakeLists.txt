@@ -7,6 +7,7 @@ set(CMAKE_CXX_STANDARD 14)
 set(
     SOURCES
     src/config.cc
+    src/datastream.cc
     src/main.cc
 )
 
