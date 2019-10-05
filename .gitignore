@@ -1,4 +1,6 @@
 .o
 .d
 
+.vscode
+
 build/
