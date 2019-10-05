@@ -4,13 +4,17 @@ project(beaver)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(
-    app
+set(
+    SOURCES
+    src/config.cc
     src/main.cc
 )
 
+add_executable(app ${SOURCES})
+
 target_include_directories(
     app PRIVATE
+    ${PROJECT_SOURCE_DIR}/include
     /usr/local/include
 )
 
