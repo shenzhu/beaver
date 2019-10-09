@@ -29,8 +29,8 @@ public:
         typename = typename std::enable_if<
             std::is_same<ResultOf<F, std::string*, std::string*>, void>::value,
             void>::type>
-    DataStream& then(F func) {
-        functions_.emplace_back(func);
+    DataStream& then(F&& func) {
+        functions_.emplace_back(std::forward<F>(func));
 
         return *this;
     }
